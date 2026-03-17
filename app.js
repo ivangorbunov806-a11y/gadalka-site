@@ -93,12 +93,16 @@ function buildThemeButtons() {
 
 function buildCardButtons() {
   cardGrid.innerHTML = "";
-  const deck = [...CARDS].sort(() => Math.random() - 0.5).slice(0, 3);
+  const deck = [...CARDS].sort(() => Math.random() - 0.5).slice(0, 6);
 
   deck.forEach((card) => {
     const btn = document.createElement("button");
-    btn.className = "choice-btn";
-    btn.textContent = card;
+    btn.className = "choice-btn tarot-card";
+    btn.innerHTML = `
+      <span class="tarot-card__frame" aria-hidden="true">✶</span>
+      <span class="tarot-card__name">${card}</span>
+      <span class="tarot-card__sigil" aria-hidden="true">☽ ✦ ☉</span>
+    `;
     btn.onclick = () => onCardSelected(card);
     cardGrid.appendChild(btn);
   });
@@ -106,26 +110,41 @@ function buildCardButtons() {
 
 function onThemeSelected(theme) {
   state.theme = theme;
+  state.card = "";
   trackEvent("theme_selected", { theme });
   buildCardButtons();
   showScreen("cards");
 }
 
 function onCardSelected(card) {
+  if (state.card) {
+    return;
+  }
+
   state.card = card;
   trackEvent("card_selected", { theme: state.theme, card });
-  showScreen("process");
 
-  let lineIndex = 0;
-  const interval = setInterval(() => {
-    lineIndex = (lineIndex + 1) % PROCESS_LINES.length;
-    processText.textContent = PROCESS_LINES[lineIndex];
-  }, 680);
+  const cardButtons = [...cardGrid.querySelectorAll(".tarot-card")];
+  cardButtons.forEach((btn) => {
+    const isChosen = btn.querySelector(".tarot-card__name")?.textContent === card;
+    btn.classList.toggle("tarot-card--selected", isChosen);
+    btn.disabled = true;
+  });
 
   setTimeout(() => {
-    clearInterval(interval);
-    showResult();
-  }, 2200);
+    showScreen("process");
+
+    let lineIndex = 0;
+    const interval = setInterval(() => {
+      lineIndex = (lineIndex + 1) % PROCESS_LINES.length;
+      processText.textContent = PROCESS_LINES[lineIndex];
+    }, 680);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      showResult();
+    }, 2200);
+  }, 340);
 }
 
 function showResult() {
