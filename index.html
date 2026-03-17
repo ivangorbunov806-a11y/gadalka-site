@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мистическая Гадалка</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-glow bg-glow--left"></div>
+    <div class="bg-glow bg-glow--right"></div>
+
+    <main class="app" id="app">
+      <section class="screen screen--active" data-screen="intro">
+        <article class="panel">
+          <div class="orb"></div>
+          <p class="eyebrow">Тайное послание уже рядом</p>
+          <h1>Мистическое гадание</h1>
+          <p class="lead">
+            Выбери тему и карту — получи атмосферный знак судьбы за пару касаний.
+          </p>
+          <button class="btn btn--primary" data-action="start">Начать гадание</button>
+        </article>
+      </section>
+
+      <section class="screen" data-screen="theme">
+        <article class="panel">
+          <p class="eyebrow">Шаг 1 из 4</p>
+          <h2>Выбери тему</h2>
+          <div class="grid" id="theme-grid"></div>
+        </article>
+      </section>
+
+      <section class="screen" data-screen="cards">
+        <article class="panel">
+          <p class="eyebrow">Шаг 2 из 4</p>
+          <h2>Выбери одну из трёх карт</h2>
+          <div class="grid" id="card-grid"></div>
+        </article>
+      </section>
+
+      <section class="screen" data-screen="process">
+        <article class="panel panel--center">
+          <div class="spinner"></div>
+          <h2>Магический процесс...</h2>
+          <p class="lead" id="process-text">Считываем вибрации твоего выбора.</p>
+        </article>
+      </section>
+
+      <section class="screen" data-screen="result">
+        <article class="panel">
+          <p class="eyebrow">Шаг 3 из 4</p>
+          <h2>Твой результат</h2>
+          <article class="result-card">
+            <p class="result-topic" id="result-topic"></p>
+            <h3 id="result-title"></h3>
+            <p class="lead" id="result-message"></p>
+          </article>
+          <button class="btn btn--ghost" data-action="to-final">К финалу</button>
+        </article>
+      </section>
+
+      <section class="screen" data-screen="final">
+        <article class="panel">
+          <p class="eyebrow">Шаг 4 из 4</p>
+          <h2>Твой знак принят</h2>
+          <p class="lead">
+            Для продолжения добавь свою ссылку и отправляй пользователей в нужное VK-сообщество.
+          </p>
+          <p class="vk-hint">Сейчас используется заглушка URL: <span id="vk-url-preview"></span></p>
+          <a class="btn btn--primary" id="vk-link" target="_blank" rel="noreferrer">
+            Перейти в VK
+          </a>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
