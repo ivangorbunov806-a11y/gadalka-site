@@ -242,3 +242,41 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+[data-screen="intro"] .panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+  padding: 24px 18px;
+}
+
+[data-screen="intro"] .panel::before {
+  content: "";
+  position: absolute;
+  inset: -6% -24% -6% 30%;
+  background: url("./fortune-teller.png") center / cover no-repeat;
+  opacity: 0.92;
+  filter: brightness(0.8) contrast(1.1) saturate(1.08);
+}
+
+[data-screen="intro"] .panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 52%, rgba(0, 0, 0, 0) 24%, rgba(0, 0, 0, 0.32) 78%),
+    linear-gradient(90deg, rgba(10, 8, 20, 0.94) 0%, rgba(10, 8, 20, 0.8) 42%, rgba(10, 8, 20, 0.42) 70%, rgba(10, 8, 20, 0.62) 100%);
+}
+
+[data-screen="intro"] .panel > * {
+  position: relative;
+  z-index: 1;
+  max-width: 57%;
+  text-shadow: 0 2px 12px rgba(4, 2, 10, 0.7);
+}
+
+[data-screen="intro"] .orb {
+  width: 92px;
+  height: 92px;
+  margin: 4px 0 14px;
+}
