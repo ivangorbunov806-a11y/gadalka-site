@@ -1,4 +1,4 @@
-const VK_PLACEHOLDER_URL = "https://vk.com/your_community";
+const VK_URL = "https://vk.com/id1043709760";
 
 const THEMES = ["Любовь", "Деньги", "Удача", "Ближайшее будущее"];
 const CARDS = [
@@ -64,7 +64,6 @@ const resultTopic = document.getElementById("result-topic");
 const resultTitle = document.getElementById("result-title");
 const resultMessage = document.getElementById("result-message");
 const vkLink = document.getElementById("vk-link");
-const vkUrlPreview = document.getElementById("vk-url-preview");
 
 function trackEvent(eventName, payload = {}) {
   window.dataLayer = window.dataLayer || [];
@@ -156,8 +155,7 @@ vkLink.addEventListener("click", () => {
   trackEvent("vk_click", { url: vkLink.href });
 });
 
-vkLink.href = VK_PLACEHOLDER_URL;
-vkUrlPreview.textContent = VK_PLACEHOLDER_URL;
+vkLink.href = VK_URL;
 
 buildThemeButtons();
 trackEvent("site_opened");
