@@ -93,6 +93,7 @@ function buildThemeButtons() {
 
 function buildCardButtons() {
   cardGrid.innerHTML = "";
+  cardGrid.classList.remove("card-grid--card-picked");
   const deck = [...CARDS].sort(() => Math.random() - 0.5).slice(0, 6);
 
   deck.forEach((card) => {
@@ -125,9 +126,11 @@ function onCardSelected(card) {
   trackEvent("card_selected", { theme: state.theme, card });
 
   const cardButtons = [...cardGrid.querySelectorAll(".tarot-card")];
+  cardGrid.classList.add("card-grid--card-picked");
   cardButtons.forEach((btn) => {
     const isChosen = btn.querySelector(".tarot-card__name")?.textContent === card;
     btn.classList.toggle("tarot-card--selected", isChosen);
+    btn.setAttribute("aria-pressed", String(isChosen));
     btn.disabled = true;
   });
 
