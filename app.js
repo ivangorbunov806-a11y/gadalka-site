@@ -1,4 +1,4 @@
-const VK_URL = "https://vk.com/id1043709760";
+const VK_POST_URL = "https://vk.com/wall-000000000_0000"; // TODO: replace with real VK post URL
 
 const THEMES = ["Любовь", "Деньги", "Удача", "Ближайшее будущее"];
 const CARDS = [
@@ -51,6 +51,19 @@ const PROCESS_LINES = [
   "Открываем тайную подсказку судьбы...",
 ];
 
+const ANALYTICS = {
+  yandexCounterId: null,
+};
+
+const EVENTS = {
+  SITE_OPEN: "site_open",
+  START_CLICK: "start_click",
+  THEME_SELECTED: "theme_selected",
+  CARD_SELECTED: "card_selected",
+  RESULT_SHOWN: "result_shown",
+  FINAL_CTA_CLICK: "final_cta_click",
+};
+
 const state = {
   theme: "",
   card: "",
@@ -63,16 +76,22 @@ const processText = document.getElementById("process-text");
 const resultTopic = document.getElementById("result-topic");
 const resultTitle = document.getElementById("result-title");
 const resultMessage = document.getElementById("result-message");
-const vkLink = document.getElementById("vk-link");
+const finalCta = document.getElementById("final-cta");
 
 function trackEvent(eventName, payload = {}) {
-  window.dataLayer = window.dataLayer || [];
   const event = {
     event: eventName,
     timestamp: new Date().toISOString(),
     ...payload,
   };
+
+  window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(event);
+
+  if (typeof window.ym === "function" && Number.isInteger(ANALYTICS.yandexCounterId)) {
+    window.ym(ANALYTICS.yandexCounterId, "reachGoal", eventName, payload);
+  }
+
   console.log("[analytics]", event);
 }
 
@@ -112,7 +131,7 @@ function buildCardButtons() {
 function onThemeSelected(theme) {
   state.theme = theme;
   state.card = "";
-  trackEvent("theme_selected", { theme });
+  trackEvent(EVENTS.THEME_SELECTED, { theme });
   buildCardButtons();
   showScreen("cards");
 }
@@ -123,7 +142,7 @@ function onCardSelected(card) {
   }
 
   state.card = card;
-  trackEvent("card_selected", { theme: state.theme, card });
+  trackEvent(EVENTS.CARD_SELECTED, { theme: state.theme, card });
 
   const cardButtons = [...cardGrid.querySelectorAll(".tarot-card")];
   cardGrid.classList.add("card-grid--card-picked");
@@ -157,7 +176,7 @@ function showResult() {
   resultMessage.textContent = message;
 
   showScreen("result");
-  trackEvent("result_shown", {
+  trackEvent(EVENTS.RESULT_SHOWN, {
     theme: state.theme,
     card: state.card,
     result: message,
@@ -165,7 +184,7 @@ function showResult() {
 }
 
 document.querySelector('[data-action="start"]').addEventListener("click", () => {
-  trackEvent("start_click");
+  trackEvent(EVENTS.START_CLICK);
   showScreen("theme");
 });
 
@@ -173,11 +192,11 @@ document.querySelector('[data-action="to-final"]').addEventListener("click", () 
   showScreen("final");
 });
 
-vkLink.addEventListener("click", () => {
-  trackEvent("vk_click", { url: vkLink.href });
+finalCta.addEventListener("click", () => {
+  trackEvent(EVENTS.FINAL_CTA_CLICK, { url: finalCta.href });
 });
 
-vkLink.href = VK_URL;
+finalCta.href = VK_POST_URL;
 
 buildThemeButtons();
-trackEvent("site_opened");
+trackEvent(EVENTS.SITE_OPEN);

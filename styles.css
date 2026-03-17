@@ -154,7 +154,6 @@ h3 {
   box-shadow: 0 10px 20px rgba(104, 70, 198, 0.28);
 }
 
-
 .card-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
@@ -251,6 +250,26 @@ h3 {
 }
 
 .card-grid--card-picked .tarot-card:not(.tarot-card--selected) {
+  opacity: 0.42;
+  filter: saturate(0.68) brightness(0.74) blur(0.3px);
+  transform: scale(0.96);
+}
+
+.tarot-card--selected {
+  transform: translateY(-7px) scale(1.05);
+  border-color: #f5e6ff;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    inset 0 20px 35px rgba(201, 151, 255, 0.42),
+    0 24px 36px rgba(8, 6, 28, 0.78),
+    0 0 56px rgba(191, 150, 255, 0.8),
+    0 0 94px rgba(125, 211, 255, 0.32);
+  animation: chosen-card-reveal 0.6s cubic-bezier(0.16, 0.84, 0.33, 1);
+}
+
+.tarot-card--selected .tarot-card__name {
+  transform: scale(1.04);
+  text-shadow: 0 0 28px rgba(235, 212, 255, 0.94), 0 2px 12px rgba(9, 4, 20, 0.9);
   opacity: 0.48;
   filter: saturate(0.78) brightness(0.82) blur(0.2px);
   transform: scale(0.97);
@@ -283,6 +302,15 @@ h3 {
   top: -32px;
   right: -24px;
   background: radial-gradient(circle, rgba(183, 229, 255, 0.5), rgba(126, 218, 255, 0));
+}
+
+.tarot-card--selected .tarot-card__sigil {
+  letter-spacing: 0.26em;
+  text-shadow: 0 0 18px rgba(192, 232, 255, 0.9);
+}
+
+.tarot-card--selected .tarot-card__frame {
+  transform: scale(1.08);
 }
 
 .tarot-card--selected .tarot-card__frame,
@@ -330,6 +358,16 @@ h3 {
 .result-card {
   position: relative;
   margin: 10px 0 18px;
+  border: 1px solid rgba(220, 198, 255, 0.58);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(151, 219, 255, 0.23), rgba(151, 219, 255, 0) 48%),
+    radial-gradient(circle at 84% 88%, rgba(194, 146, 255, 0.24), rgba(194, 146, 255, 0) 54%),
+    linear-gradient(180deg, #1d1637 0%, #110c24 100%);
+  border-radius: 18px;
+  padding: 20px 18px 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(8, 6, 24, 0.6), 0 0 34px rgba(154, 123, 255, 0.3);
+  animation: result-rise 0.55s ease;
   border: 1px solid rgba(214, 190, 255, 0.5);
   background:
     radial-gradient(circle at 18% 14%, rgba(151, 219, 255, 0.2), rgba(151, 219, 255, 0) 48%),
@@ -351,6 +389,18 @@ h3 {
   pointer-events: none;
 }
 
+.result-card::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -34px;
+  top: -36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(202, 174, 255, 0.35), rgba(202, 174, 255, 0));
+  pointer-events: none;
+}
+
 .result-sigil {
   margin: 0 0 12px;
   color: #d9c5ff;
@@ -361,9 +411,33 @@ h3 {
 }
 
 .result-topic {
+  display: inline-block;
   color: var(--accent-2);
+  margin: 0 0 10px;
   margin: 0 0 9px;
   font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 225, 255, 0.32);
+  background: rgba(40, 60, 105, 0.24);
+}
+
+#result-title {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 6vw, 31px);
+  line-height: 1.18;
+  color: #f9ebff;
+  text-shadow: 0 0 24px rgba(211, 165, 255, 0.62), 0 2px 12px rgba(5, 3, 14, 0.92);
+}
+
+#result-message {
+  margin: 0;
+  font-size: clamp(15px, 4.2vw, 18px);
+  line-height: 1.62;
+  color: #d7ccec;
 }
 
 #result-title {
@@ -392,6 +466,14 @@ h3 {
 
 @keyframes chosen-card-reveal {
   0% {
+    transform: rotateY(-12deg) scale(0.9);
+    filter: brightness(1.22);
+  }
+  50% {
+    transform: rotateY(9deg) scale(1.07);
+  }
+  100% {
+    transform: translateY(-7px) scale(1.05);
     transform: rotateY(-10deg) scale(0.92);
     filter: brightness(1.2);
   }
