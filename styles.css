@@ -270,6 +270,26 @@ h3 {
 .tarot-card--selected .tarot-card__name {
   transform: scale(1.04);
   text-shadow: 0 0 28px rgba(235, 212, 255, 0.94), 0 2px 12px rgba(9, 4, 20, 0.9);
+  opacity: 0.48;
+  filter: saturate(0.78) brightness(0.82) blur(0.2px);
+  transform: scale(0.97);
+}
+
+.tarot-card--selected {
+  transform: translateY(-6px) scale(1.045);
+  border-color: #f0deff;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0 20px 35px rgba(201, 151, 255, 0.36),
+    0 24px 36px rgba(8, 6, 28, 0.74),
+    0 0 52px rgba(191, 150, 255, 0.72),
+    0 0 88px rgba(125, 211, 255, 0.28);
+  animation: chosen-card-reveal 0.55s cubic-bezier(0.16, 0.84, 0.33, 1);
+}
+
+.tarot-card--selected .tarot-card__name {
+  transform: scale(1.03);
+  text-shadow: 0 0 26px rgba(235, 212, 255, 0.88), 0 2px 12px rgba(9, 4, 20, 0.85);
 }
 
 .tarot-card--selected::before {
@@ -348,6 +368,16 @@ h3 {
   overflow: hidden;
   box-shadow: 0 14px 30px rgba(8, 6, 24, 0.6), 0 0 34px rgba(154, 123, 255, 0.3);
   animation: result-rise 0.55s ease;
+  border: 1px solid rgba(214, 190, 255, 0.5);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(151, 219, 255, 0.2), rgba(151, 219, 255, 0) 48%),
+    radial-gradient(circle at 84% 88%, rgba(194, 146, 255, 0.2), rgba(194, 146, 255, 0) 54%),
+    linear-gradient(180deg, #1b1433 0%, #110c24 100%);
+  border-radius: 18px;
+  padding: 20px 18px 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(8, 6, 24, 0.56), 0 0 28px rgba(154, 123, 255, 0.22);
+  animation: result-rise 0.5s ease;
 }
 
 .result-card::before {
@@ -384,6 +414,7 @@ h3 {
   display: inline-block;
   color: var(--accent-2);
   margin: 0 0 10px;
+  margin: 0 0 9px;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.08em;
@@ -409,6 +440,18 @@ h3 {
   color: #d7ccec;
 }
 
+#result-title {
+  margin: 0 0 12px;
+  font-size: clamp(23px, 5.8vw, 30px);
+  color: #f7e7ff;
+  text-shadow: 0 0 22px rgba(211, 165, 255, 0.56), 0 2px 12px rgba(5, 3, 14, 0.9);
+}
+
+#result-message {
+  margin: 0;
+  font-size: clamp(15px, 4.2vw, 18px);
+}
+
 .vk-hint {
   margin: -4px 0 16px;
   color: #bfb6db;
@@ -431,6 +474,14 @@ h3 {
   }
   100% {
     transform: translateY(-7px) scale(1.05);
+    transform: rotateY(-10deg) scale(0.92);
+    filter: brightness(1.2);
+  }
+  55% {
+    transform: rotateY(8deg) scale(1.06);
+  }
+  100% {
+    transform: translateY(-6px) scale(1.045);
     filter: none;
   }
 }
