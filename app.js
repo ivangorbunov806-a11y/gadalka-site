@@ -1,4 +1,4 @@
-const VK_POST_URL = "https://vk.com/wall-000000000_0000"; // TODO: replace with real VK post URL
+const VK_POST_URL = "https://vk.com/wall1043709760_23";
 
 const THEMES = [
   "Любовь",
