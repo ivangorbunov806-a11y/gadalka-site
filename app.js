@@ -278,11 +278,10 @@ const PROCESS_LINES = [
 ];
 
 const ANALYTICS = {
-  yandexCounterId: null,
+  yandexCounterId: 107999937,
 };
 
 const EVENTS = {
-  SITE_OPEN: "site_open",
   START_CLICK: "start_click",
   THEME_SELECTED: "theme_selected",
   CARD_SELECTED: "card_selected",
@@ -425,4 +424,3 @@ finalCta.addEventListener("click", () => {
 finalCta.href = VK_POST_URL;
 
 buildThemeButtons();
-trackEvent(EVENTS.SITE_OPEN);
